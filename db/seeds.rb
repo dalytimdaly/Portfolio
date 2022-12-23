@@ -5,3 +5,38 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+require 'faker'
+
+skills = ["pro", "advanced", "intermediate", "beginner"]
+
+600.times do
+  User.create(
+    username: Faker::Internet.email,
+    password_digest: Faker::Internet.password(min_length: 10, max_length: 20),
+    first_name: Faker::Name.first_name,
+    last_name: Faker::Name.last_name,
+    area: "Denver, CO",
+    phone_number: Faker::PhoneNumber.cell_phone,
+    bio: Faker::Hipster.paragraph(sentence_count: 8),
+    skill_level: skills.sample,
+  )
+end
+
+Project.create(
+  name: "Yalp - A Yelp Clone",
+  project_length: "",
+  description: "",
+)
+
+Project.create(
+  name: "Gregslist - A Craigslist Clone",
+  project_length: "",
+  description: "",
+)
+
+Project.create(
+  name: "PicklePartners",
+  project_length: "",
+  description: "",
+)
+

@@ -1,0 +1,12 @@
+.projectDiv {
+  display: flex;
+  position: relative;
+  top: 50px;
+  left: 100px;
+}
+
+.headers {
+  position: relative;
+  left: 50px;
+
+}

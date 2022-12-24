@@ -18,6 +18,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_23_181818) do
     t.string "name"
     t.string "project_length"
     t.string "description"
+    t.string "url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -30,7 +31,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_23_181818) do
     t.string "area"
     t.string "phone_number"
     t.string "bio"
-    t.string "skill_level"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

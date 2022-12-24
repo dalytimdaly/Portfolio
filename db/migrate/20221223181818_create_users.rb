@@ -8,7 +8,6 @@ class CreateUsers < ActiveRecord::Migration[7.0]
       t.string :area
       t.string :phone_number
       t.string :bio
-      t.string :skill_level
       
       t.timestamps
     end

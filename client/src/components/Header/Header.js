@@ -11,7 +11,9 @@ export default function Header({ user, results }) {
   return (
     <>
     <div className={styles.header}>
-      
+      <div className={styles.homeBtn}>
+        <Link to='/'><img className={styles.icon} src="https://cdn-icons-png.flaticon.com/512/2544/2544087.png" alt="create"/></Link>
+      </div>
       <div className={styles.links}>
       {results.map(result => <HeaderResult key={result.id} result={result}/>)}
       </div>

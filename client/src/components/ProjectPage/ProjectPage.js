@@ -3,11 +3,10 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
 
-export default function ProjectPage({ user, results}) {
+export default function ProjectPage({ user, result}) {
 
 
-  const project = results[0]
-  
+  const project = result
 
   return (
     <div className={styles.projectContainer}>

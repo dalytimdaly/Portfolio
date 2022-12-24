@@ -38,14 +38,16 @@ function App() {
     setUser(userData);
   }
 
+  const projRoutes = results.map(result => <Route path={`/projects/${result.url}`} element={<ProjectPage user={user} result={result} />} />)
+
+  
+
 
   return (
     <Routes>
     <Route element={<Header user={user} results={results} />}>
-    <Route path="/" element={<Main user={user} results={results}/>} />
-    <Route path="/projects/pickepartners" element={<ProjectPage user={user} results={results.filter(result => result.url === "picklepartners")}/>}/>
-    <Route path="/projects/gregslist" element={<ProjectPage user={user} results={results.filter(result => result.url === "gregslist")}/>}/>
-    <Route path="/projects/yalp" element={<ProjectPage user={user} results={results.filter(result => result.url === "yalp")}/>}/>
+    <Route path="/" element={<Main user={user} results={results}/>} /> 
+    {projRoutes}
     </Route>
     </Routes>
   );

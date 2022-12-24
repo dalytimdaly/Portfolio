@@ -6,9 +6,6 @@ import ProjectPage from '../ProjectPage/ProjectPage.js'
 
 export default function Main({ user, results }) {
 
-  const [selectedProject, setSelectedProject] = useState([])
-
-  console.log(selectedProject)
   
   return (
     <div>
@@ -18,7 +15,7 @@ export default function Main({ user, results }) {
     <h2>Full Stack Web Developer</h2>
     <h3>JavaScript | React | Ruby | Rails</h3>
     </div>
-      <div className={styles.projectDiv}> {results.map(result => <ProjectCard key={result.id} result={result} setSelectedProject={setSelectedProject}/>)}</div>
+      <div className={styles.projectDiv}> {results.map(result => <ProjectCard key={result.id} result={result}/>)}</div>
     </div>
   
     </div>

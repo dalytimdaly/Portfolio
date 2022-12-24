@@ -7,5 +7,16 @@ Rails.application.routes.draw do
   get '*path',
       to: 'fallback#index',
       constraints: ->(req) { !req.xhr? && req.format.html? }
+  
+  post '/login', to:'sessions#create'
+  delete '/destroy', to: 'sessions#destroy'
+    
+  get '/me', to:'users#showme'
+  post '/signup', to: 'users#create'
+  
+  patch '/setavatar/:id', to: 'users#set_avatar'
+  
+ 
+  
 
 end

@@ -17,7 +17,6 @@ export default function Main({ user, results }) {
     </div>
       <div className={styles.projectDiv}> {results.map(result => <ProjectCard key={result.id} result={result}/>)}</div>
     </div>
-  
     </div>
   )
 

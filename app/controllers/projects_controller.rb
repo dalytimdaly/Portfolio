@@ -10,7 +10,7 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    project = Project.create!(court_params)
+    project = Project.create!(project_params)
     render json: project, status: :created
   end
 
@@ -21,7 +21,7 @@ class ProjectsController < ApplicationController
   end
 
   def update
-    court = Project.find(params[:id])
+    project = Project.find(params[:id])
     if project.update(court_params)
       render json: project, status: :accepted
     else
@@ -29,10 +29,19 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def edit_image
+    project = Project.find(params[:id])
+    project.update(params[:images])
+    render json: project, status: :accepted
+  end
+
+
   private
 
   def project_params
-    params.permit(:id, :name, :project_length, :description)
+    defaults = { images: [] }
+    params.permit(:id, :name, :project_length, :description, :images).reverse_merge(defaults)
   end
+
 
 end

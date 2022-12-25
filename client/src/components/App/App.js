@@ -4,6 +4,7 @@ import styles from './App.module.css'
 import Main from '../Main/Main.js'
 import Header from '../Header/Header.js'
 import ProjectPage from '../ProjectPage/ProjectPage.js'
+import EditProject from '../EditProject/EditProject.js'
 
 function App() {
 
@@ -46,6 +47,7 @@ function App() {
   return (
     <Routes>
     <Route element={<Header user={user} results={results} />}>
+    <Route element={<EditProject results={results} />} />
     <Route path="/" element={<Main user={user} results={results}/>} /> 
     {projRoutes}
     </Route>

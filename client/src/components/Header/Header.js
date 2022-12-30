@@ -6,8 +6,7 @@ import HeaderResult from './HeaderResult'
 export default function Header({ user, results }) {
 
 
- // | <Link to={path}>account</Link>
-//<Link to={path2}>Yalp - A Yelp Clone</Link> | <Link to={path3}>Gregslist - A Craigslist Clone</Link> | <Link>PicklePartners</Link> | 
+  
   return (
     <>
     <div className={styles.header}>

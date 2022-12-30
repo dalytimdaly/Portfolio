@@ -16,33 +16,51 @@ export default function EditProject({ user, result }) {
     setEditImage(!editImage)
   }
 
+  console.log(result.image_urls)
+console.log(result)
 
-  function handleSubmitPicture(e) {
-    e.preventDefault()
-    const file = e.target['image'].files[0]
+  function handleSubmitPicture() {
     const formData = new FormData();
-    formData.append('image', file)
-    
-  fetch(`/editimage/${result.id}`, {
-            method: 'PATCH',
-            headers: {
-                'Accept': 'application/json'
-            },
-            body: formData
-        }).then(res => res.json())
-        .then((data) => alert('Image submitted!'))
-        
+    attachments.forEach(attachment => formData.append('image[]', attachment, attachment.name))
+
+    fetch(`/projects/${result.id}`, {
+      method: "PATCH",
+      body: formData
+    }).then(r=>{if (r.ok) { r.json().then(data=>{
+      setAttachments([])
+    })}})
+      
     }
 
+    const [attachments, setAttachments] = useState([])
+    const [errorText, setErrorText] = useState("")
+
+  function handleSetAttachments(e) {
+    console.log(e.target.files)
+
+    if ((e.target.files.length + attachments.length) > 4)
+      { return setErrorText("Only a max of 4 images allowed") }
+    setErrorText("")
+
+    console.log([...attachments, ...e.target.files])
+
+    setAttachments(attachments=>[ ...e.target.files, ...attachments])
+
+    console.log(attachments)
+  }
+
   return (
-      <div>
+    <div>
         <div className={styles.imagecontainer}>
-      {editImage ? <form onSubmit={(e) => handleSubmitPicture(e)}>
-                <input type="file" name="image" className={styles.avatarInput}/>
-                <button type="submit" className={styles.avatarButton}>Submit</button>
-            </form> : 
-      <button onClick={renderEditImageInput} className={styles.imageButton}>edit avatar</button>}
+                <input type="file" accept="image/*" multiple={true} name="images" className={styles.avatarInput} onChange={handleSetAttachments}/>
+                <button onClick={handleSubmitPicture}>submit</button>
       </div>
-      </div>
+      <div className="chirp_editor_attachment_viewer col">
+      {attachments.map((attachment,i)=><div className="row" key={i}>
+        <button className="removeAttachment" onClick={()=>setAttachments(attachments.filter(a=>a.name!==attachment.name))}>X</button>
+        <span>{attachment.name}</span>
+      </div>)}
+    </div>
+    </div>
   )
 }

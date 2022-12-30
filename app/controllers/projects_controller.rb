@@ -1,4 +1,5 @@
 class ProjectsController < ApplicationController
+  before_action :set_project, only: %i[show destroy]
 
   def index
     render json: Project.all
@@ -22,25 +23,25 @@ class ProjectsController < ApplicationController
 
   def update
     project = Project.find(params[:id])
-    if project.update(court_params)
+    if project.update(images: params[:images])
       render json: project, status: :accepted
     else
       render json: { errors: project.errors.full_messages}, status: :unprocessable_entity
     end
   end
 
-  def edit_image
-    project = Project.find(params[:id])
-    project.update(params[:images])
-    render json: project, status: :accepted
-  end
+  
 
 
   private
 
   def project_params
     defaults = { images: [] }
-    params.permit(:id, :name, :project_length, :description, :images).reverse_merge(defaults)
+    params.permit(:id, :name, :project_length, :description, :images, :attachment)
+  end
+
+  def set_project
+    @project = Project.find(params[:id])
   end
 
 

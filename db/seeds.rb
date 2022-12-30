@@ -25,20 +25,23 @@ Project.create(
   name: "Yalp - A Yelp Clone",
   project_length: "",
   description: "",
-  url: "yalp"
+  url: "yalp",
+  attachment: ""
 )
 
 Project.create(
   name: "Gregslist - A Craigslist Clone",
   project_length: "",
   description: "",
-  url: "gregslist"
+  url: "gregslist",
+  attachment: ""
 )
 
 Project.create(
   name: "PicklePartners",
   project_length: "",
   description: "",
-  url: "picklepartners"
+  url: "picklepartners",
+  attachment: ""
 )
 

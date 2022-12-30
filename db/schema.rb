@@ -47,6 +47,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_24_235418) do
     t.string "project_length"
     t.string "description"
     t.string "url"
+    t.string "attachment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

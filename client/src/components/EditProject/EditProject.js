@@ -48,7 +48,7 @@ export default function EditProject({ user, result }) {
     console.log(attachments)
   
   }
-  console.log(result)
+  
   return (
     <div>
 

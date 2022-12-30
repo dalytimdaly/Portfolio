@@ -9,8 +9,7 @@ export default function ProjectPage({ user, result}) {
   const project = result
   const path = "hi"
 
-  
-
+  console.log(project)
   return (
     <div className={styles.projectContainer}>
       <h1>{project.name}</h1>

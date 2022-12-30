@@ -1,6 +1,7 @@
 class ProjectSerializer < ActiveModel::Serializer
-  attributes :id, :description, :name, :project_length, 
-  :image_urls, images: []
+include Rails.application.routes.url_helpers
+  attributes :id, :description, :name, :project_length, :image_urls, :url
 
+ 
 
 end

@@ -1,5 +1,9 @@
 class ApplicationController < ActionController::API
   include ActionController::Cookies
+  
+  before_action do
+    ActiveStorage::Current.url_options = { protocol: request.protocol, host: request.host, port: request.port }
+  end
 
   rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
   rescue_from ActiveRecord::RecordInvalid, with: :render_invalid

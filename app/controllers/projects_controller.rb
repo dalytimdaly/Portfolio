@@ -37,7 +37,7 @@ class ProjectsController < ApplicationController
 
   def project_params
     defaults = { images: [] }
-    params.permit(:id, :name, :project_length, :description, :images, :attachment)
+    params.permit(:id, :name, :project_length, :description, :attachment, images: [], :image_urls).reverse_merge(defaults)
   end
 
   def set_project

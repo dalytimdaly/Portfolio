@@ -2,6 +2,7 @@ import styles from './EditProject.module.css';
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom'
 
+
 export default function EditProject({ user, result }) {
 
   const [patch, setPatch] = useState(0);
@@ -16,12 +17,10 @@ export default function EditProject({ user, result }) {
     setEditImage(!editImage)
   }
 
-  console.log(result.image_urls)
-console.log(result)
 
   function handleSubmitPicture() {
     const formData = new FormData();
-    attachments.forEach(attachment => formData.append('image[]', attachment, attachment.name))
+    attachments.forEach(attachment => formData.append('images[]', attachment, attachment.name))
 
     fetch(`/projects/${result.id}`, {
       method: "PATCH",
@@ -47,10 +46,12 @@ console.log(result)
     setAttachments(attachments=>[ ...e.target.files, ...attachments])
 
     console.log(attachments)
+  
   }
-
+  console.log(result)
   return (
     <div>
+
         <div className={styles.imagecontainer}>
                 <input type="file" accept="image/*" multiple={true} name="images" className={styles.avatarInput} onChange={handleSetAttachments}/>
                 <button onClick={handleSubmitPicture}>submit</button>
@@ -60,6 +61,7 @@ console.log(result)
         <button className="removeAttachment" onClick={()=>setAttachments(attachments.filter(a=>a.name!==attachment.name))}>X</button>
         <span>{attachment.name}</span>
       </div>)}
+     
     </div>
     </div>
   )

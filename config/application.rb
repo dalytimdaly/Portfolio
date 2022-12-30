@@ -43,6 +43,8 @@ module PortfolioProject
 
     # Use SameSite=Strict for all cookies to help protect against CSRF
     config.action_dispatch.cookies_same_site_protection = :strict
+
+    config.active_storage.replace_on_assign_to_many = false
     
   end
 end

@@ -1,21 +1,17 @@
 import styles from './EditProject.module.css';
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, useLocation } from 'react-router-dom'
 
 
-export default function EditProject({ user, result }) {
+export default function EditProject({ user }) {
+
+  const location = useLocation()
+  const result = location.state.data
+  console.log(location)
+  console.log(location.state.data)
+
 
   const [patch, setPatch] = useState(0);
-  const [editImage, setEditImage] = useState(false)
-
-  function handleEditImage(event) {
-    setEditImage(event.target.value)
-  }
-
-  function renderEditImageInput() {
-    setPatch(1)
-    setEditImage(!editImage)
-  }
 
 
   function handleSubmitPicture() {
@@ -51,6 +47,18 @@ export default function EditProject({ user, result }) {
   
   return (
     <div>
+      <div>
+        Edit Name:
+        {result.name}
+      </div>
+      <div>
+
+      </div>
+      <div>
+        Edit Description:
+        {result.description}
+      </div>
+      
 
         <div className={styles.imagecontainer}>
                 <input type="file" accept="image/*" multiple={true} name="images" className={styles.avatarInput} onChange={handleSetAttachments}/>

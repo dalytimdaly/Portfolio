@@ -47,7 +47,7 @@ function App() {
   return (
     <Routes>
     <Route element={<Header user={user} results={results} />}>
-    <Route element={<EditProject results={results} />} />
+    <Route path="/edit" element={<EditProject results={results} />} />
     <Route path="/" element={<Main user={user} results={results}/>} /> 
     {projRoutes}
     </Route>

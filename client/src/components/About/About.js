@@ -1,0 +1,1 @@
+/* this page can talk about the site, why you can create a user, and emphasize testing my skills */

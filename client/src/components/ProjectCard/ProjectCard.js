@@ -11,8 +11,6 @@ export default function ProjectCard({ result, setSelectedProject }) {
           <img src={result.image_urls[0]} alt="item" width="500" height="600" className={styles.image}/>
           <div className={styles.metacontainer}>
             <span className={styles.title}>{result.name}</span>
-            <span className={styles.price2}>{result.description}</span>
-            <span className={styles.area}>{result.project_length}</span>
           </div>
       </Link>
     )

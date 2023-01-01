@@ -7,13 +7,15 @@ export default function EditProject({ user }) {
 
   const location = useLocation()
   const result = location.state.data
+  
+  const navigate = useNavigate();
 
 // edit project info
 
-  const [description, setDescription] = useState("")
-  const [name, setName] = useState("")
-  const [projectLength, setProjectLength] = useState("")
-  const [url, setUrl] = useState("")
+  const [description, setDescription] = useState(result.description)
+  const [name, setName] = useState(result.name)
+  const [projectLength, setProjectLength] = useState(result.project_length)
+  const [url, setUrl] = useState(result.url)
   
   const [patch, setPatch] = useState(0);
 
@@ -21,21 +23,50 @@ export default function EditProject({ user }) {
     setPatch(1)
   }
 
-  function handleDescription() {
-
+  function handleDescription(event) {
+    setDescription(event.target.value)
   }
   
-  function handleName() {
-
+  function handleName(event) {
+    setName(event.target.value)
   }
 
-  function handleProjectLength() {
-
+  function handleProjectLength(event) {
+    setProjectLength(event.target.value)
   }
 
-  function handleUrl() {
+  function handleUrl(event) {
+    setUrl(event.target.value)
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault()
+
+    const editedProject = {
+        "description": description,
+        "name": name,
+        "project_length": projectLength,
+        "url": url,
+    }
+
+    console.log(editedProject)
+
+    fetch(`/projects/${result.id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(editedProject),
+    })
+    .then(r => r.json())
+    .then((data) => {
+      navigate(`/projects/${editedProject.url}`)
+      window.location.reload()
+    })
     
   }
+
+
 //add images
 
   const [attachments, setAttachments] = useState([])
@@ -64,19 +95,19 @@ export default function EditProject({ user }) {
       <form onChange={startPatch}>
         <div>
           <label> Edit Name: </label>
-          <input type='text' value={patch === 1 ? name : result.name} />
+          <input type='text' value={patch === 1 ? name : result.name} onChange={handleName}/>
         </div>
         <div>
           <label> Edit Description: </label>
-          <textarea value={patch === 1 ? description : result.description } />
+          <textarea value={patch === 1 ? description : result.description} onChange={handleDescription}/>
         </div>
         <div>
           <label> Edit URL:</label>
-          <input type='text' value={patch === 1 ? url : result.url} />
+          <input type='text' value={patch === 1 ? url : result.url} onChange={handleUrl}/>
         </div>
         <div>
           <label> Edit Project Length: </label>
-          <input type='text' value={patch === 1 ? projectLength : result.project_length} />
+          <input type='text' value={patch === 1 ? projectLength : result.project_length} onChange={handleProjectLength}/>
         </div>
       </form>
       <form>
@@ -84,6 +115,7 @@ export default function EditProject({ user }) {
           <label>Remove Photos:</label>
           {result.image_urls}
         </div>
+        <button className={styles.button} type="submit" onClick={handleSubmit}>Save Edited Project Info</button>
       </form>
 
     <div className={styles.imagecontainer}>

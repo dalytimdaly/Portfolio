@@ -8,7 +8,7 @@ export default function ProjectCard({ result, setSelectedProject }) {
 
   return (
       <Link to={path} className={styles.postcardcontainer} >
-          <img alt="item" width="500" height="600" className={styles.image}/>
+          <img src={result.image_urls[0]} alt="item" width="500" height="600" className={styles.image}/>
           <div className={styles.metacontainer}>
             <span className={styles.title}>{result.name}</span>
             <span className={styles.price2}>{result.description}</span>

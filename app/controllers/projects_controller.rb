@@ -25,7 +25,7 @@ class ProjectsController < ApplicationController
     render json: {}, status: :accepted
   end
 
-  def update
+  def update_images
     project = Project.find(params[:id])
     if project.update(images: params[:images])
       render json: project, status: :accepted

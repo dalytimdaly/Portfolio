@@ -17,7 +17,7 @@ export default function ProjectPage({ user, result}) {
       <div className={styles.thumbnailGallery}>
       {images.map(image => <img className={styles.thumbnail} key={image} src={image} alt="image missing"/>)}
       </div>
-      <Link to="/edit" state={{ result: result}}>
+      <Link to="/edit" state={{ data: result}}>
       Edit Project
       </Link> 
     </div>

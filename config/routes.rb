@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   
   patch '/setavatar/:id', to: 'users#set_avatar'
   
+  patch '/projects_images/:id', to: 'projects#update_images'
  
 
 

@@ -17,7 +17,7 @@ export default function Header({ user, results }) {
       {results.map(result => <HeaderResult key={result.id} result={result}/>)}
       </div>
       <div className={styles.links}>
-      {user ? `Hi, ${user.name}!` : "Log in or Sign up!" } | <Link>profile</Link>
+      {user ? `Hi, ${user.name}!` : <Link to='/login'>Log in or Sign up!</Link> } | <Link>profile</Link>
       </div>
     </div>
     <Outlet />

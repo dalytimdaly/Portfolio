@@ -55,7 +55,7 @@ function App() {
     <Route path="/" element={<Main user={user} results={results}/>} /> 
     <Route path='/login' element={<Login user={user} newUser={newUser}/>} />
     <Route path='/profile/edit' element={<EditProfile user={user} newuser={newUser}/>}/>
-    <Route path='/profile/' element={<UserProfile user={user}/>}/>
+    <Route path='/profile/:id' element={<UserProfile user={user}/>}/>
     {projRoutes}
     </Route>
     </Routes>

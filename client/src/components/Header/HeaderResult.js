@@ -8,7 +8,7 @@ export default function HeaderResult({ user, result }) {
 
 return (
   <div>
-    <Link to={`/projects/${result.url}`}>{result.name}</Link>     |
+    <Link to={`/projects/${result.url}`}>{result.name}</Link>|      
   </div>
 )
 

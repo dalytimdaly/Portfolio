@@ -3,10 +3,22 @@
   position: relative;
   top: 50px;
   left: 100px;
+  max-width: 50vw;
 }
 
 .headers {
   position: relative;
   left: 50px;
+  top: 10px;
+  max-width: 70vw;
+}
 
+.mainDiv {
+  background: dimgray;
+  height: 55vw;
+  width: 98.9vw;
+}
+
+.name {
+  margin: 0px;
 }

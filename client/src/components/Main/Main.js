@@ -6,6 +6,7 @@ import ProjectPage from '../ProjectPage/ProjectPage.js'
 
 export default function Main({ user, results }) {
 
+  console.log(user)
   
   return (
     <div className={styles.mainDiv}>

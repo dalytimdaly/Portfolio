@@ -7,19 +7,11 @@ export default function EditAccount({user}) {
   const navigate = useNavigate()
 
   const [postObject, setPostObject] = useState({})
-  const [editedObject, setEditedObject] = useState({
-    first_name: postObject.first_name,
-    last_name: postObject.last_name,
-    phone: postObject.phone,
-    area: postObject.area,
-    bio: postObject.bio
-  })
-  
-  const [patch, setPatch] = useState(0);
-
-  function startPatch() {
-    setPatch(1)
-  }
+  const [firstName, setFirstName] = useState(postObject.first_name)
+  const [lastName, setLastName] = useState(postObject.last_name)
+  const [phone, setPhone] = useState(postObject.phone_number)
+  const [userArea, setUserArea] = useState(postObject.area)
+  const [userBio, setUserBio] = useState(postObject.bio)
 
   useEffect(() => {
     fetch(`/me`)
@@ -27,53 +19,82 @@ export default function EditAccount({user}) {
       setPostObject(data)
     })
   }, [])
+  
+  const [patch, setPatch] = useState(0);
 
-  console.log(postObject)
-  console.log(editedObject)
-
-  function handleChange(event) {
-    setEditedObject(event.target.value)
+  function startPatch() {
+    setPatch(1)
   }
+
+  function handleFirstName(event) {
+    setFirstName(event.target.value)
+  }
+
+  function handleLastName(event) {
+    setLastName(event.target.value)
+  }
+
+  function handlePhone(event) {
+    setPhone(event.target.value)
+  }
+
+  function handleArea(event) {
+    setUserArea(event.target.value)
+  }
+
+  function handleBio(event) {
+    setUserBio(event.target.value)
+  }
+  
 
   function handleSubmit(event) {
     event.preventDefault()
 
+    const editedUser = {
+      first_name: firstName,
+      last_name: lastName,
+      phone_number: phone,
+      area: userArea,
+      bio: userBio
+    }
+
+    
     fetch(`/users/${postObject.id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(editedObject),
+      body: JSON.stringify(editedUser),
     })
     .then(r => r.json())
     .then((data) => {
-      navigate('/profile')
+      navigate(`/profile/${postObject.id}`)
       window.location.reload()
     })
-
+   
   }
-
 
   return (
     <div>
       <form onChange={startPatch} onSubmit={handleSubmit}>
       <label>First Name</label>
-      <input type="text" value={patch > 0 ? editedObject.first_name : postObject.first_name} onChange={handleChange} />
+      <input type="text" value={postObject.first_name} onChange={handleFirstName} />
 
       <label>Last Name</label>
-      <input type="text" value={patch > 0 ? editedObject.last_name : postObject.last_name} onChange={handleChange} />
+      <input type="text" value={postObject.last_name} onChange={handleLastName} />
 
       <label>Phone Number</label>
-      <input type="text" value={patch > 0 ? editedObject.phone : postObject.phone} onChange={handleChange} />
+      <input type="text" value={postObject.phone} onChange={handlePhone} />
 
       <label>Area</label>
-      <input type="text" value={patch > 0 ? editedObject.area : postObject.area} onChange={handleChange} />
+      <input type="text" value={postObject.area} onChange={handleArea} />
 
       <label>Bio</label>
-      <textarea value={patch > 0 ? editedObject.bio : postObject.bio} onChange={handleChange} />
+      <textarea value={postObject.bio} onChange={handleBio} />
 
       <label>Profile Picture</label>
       <input type="file"  />
+
       <button className={styles.button} type="submit">Submit Account Info</button>
       </form>
     </div>

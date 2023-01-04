@@ -1,5 +1,5 @@
 class Project < ApplicationRecord
-  belongs_to :user
+  
   has_many_attached :images
   delegate :service_url, to: :blob
 

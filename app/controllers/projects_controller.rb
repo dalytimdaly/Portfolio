@@ -14,9 +14,8 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    project = Project.create!(project_params)
+    project = Project.create!(name: params[:name], project_length: params[:project_length], description: params[:description], url: params[:url], images: params[:images])
     render json: project, status: :created
-    
   end
 
   def destroy

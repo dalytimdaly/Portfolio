@@ -8,6 +8,7 @@ import EditProject from '../EditProject/EditProject.js'
 import Login from '../Login/Login.js'
 import EditProfile from '../EditProfile/EditProfile.js'
 import UserProfile from '../UserProfile/UserProfile.js'
+import AddProject from '../AddProject/AddProject';
 
 
 function App() {
@@ -51,12 +52,13 @@ function App() {
   return (
     <Routes>
     <Route element={<Header user={user} results={results} />}>
-    <Route path="/edit" element={<EditProject results={results} />} />
-    <Route path="/" element={<Main user={user} results={results}/>} /> 
-    <Route path='/login' element={<Login user={user} newUser={newUser}/>} />
-    <Route path='/profile/edit' element={<EditProfile user={user} newuser={newUser}/>}/>
-    <Route path='/profile/:id' element={<UserProfile user={user}/>}/>
-    {projRoutes}
+      <Route path="/edit" element={<EditProject results={results} />} />
+      <Route path="/" element={<Main user={user} results={results}/>} /> 
+      <Route path='/login' element={<Login user={user} newUser={newUser}/>} />
+      <Route path='/projects/add' element={<AddProject user={user} />} />
+      <Route path='/profile/edit' element={<EditProfile user={user} newuser={newUser}/>}/>
+      <Route path='/profile/:id' element={<UserProfile user={user}/>}/>
+      {projRoutes}
     </Route>
     </Routes>
   );

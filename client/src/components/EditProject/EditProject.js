@@ -52,7 +52,7 @@ export default function EditProject({ user }) {
       body: formData
     }).then(r=>{if (r.ok) { r.json().then(data=>{
       setAttachments([])
-      navigate(`/projects/${url}`)
+      navigate(`/projects/${result.url}`)
       window.location.reload()
     })}})
     
@@ -89,8 +89,6 @@ export default function EditProject({ user }) {
   //Delete Image
   
   function handleImageDelete(n) {
-    console.log(n)
-    
     fetch(`/projects_images/${result.id}`, {
       method: 'DELETE',
       headers: {

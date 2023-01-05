@@ -20,7 +20,7 @@ class ProjectsController < ApplicationController
 
   def destroy_image
     project = Project.find(params[:id])
-    project.images.purge
+    project.images[0].purge
     render json: project, status: :accepted
   end
 

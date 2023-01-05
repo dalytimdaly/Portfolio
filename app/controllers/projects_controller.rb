@@ -18,6 +18,12 @@ class ProjectsController < ApplicationController
     render json: project, status: :created
   end
 
+  def destroy_image
+    project = Project.find(params[:id])
+    project.images.purge
+    render json: project, status: :accepted
+  end
+
   def destroy
     project = Project.find(params[:id])
     project.destroy
@@ -26,25 +32,13 @@ class ProjectsController < ApplicationController
 
   def update
     project = Project.find(params[:id])
-    if project.update(name: params[:name], project_length: params[:project_length], description: params[:description], url: params[:url])
+    if project.update(name: params[:name], project_length: params[:project_length], description: params[:description], url: params[:url], images: params[:images])
       render json: project, status: :accepted
     else
       render json: { errors: project.errors.full_messages}, status: :unprocessable_entity
     end
   end
-
-  def update_images
-    project = Project.find(params[:id])
-    if project.update(images: params[:images])
-      render json: project, status: :accepted
-    else
-      render json: { errors: project.errors.full_messages}, status: :unprocessable_entity
-    end
-  end
-
   
-
-
   private
 
   def project_params

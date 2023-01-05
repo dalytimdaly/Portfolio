@@ -19,7 +19,7 @@ export default function AddProject({ user }) {
     setAttachments(attachments=>[ ...e.target.files, ...attachments])
   }
 
-  function handleSubmit(e) {
+  function handleSubmit() {
     const formData = new FormData();
     formData.append('name', projectName)
     formData.append('project_length', projectLength)

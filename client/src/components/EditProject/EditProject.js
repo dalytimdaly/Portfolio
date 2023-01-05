@@ -40,7 +40,9 @@ export default function EditProject({ user }) {
     setUrl(event.target.value)
   }
 
-  function handleSubmit() {
+  function handleSubmit(e) {
+    e.preventdefault()
+    
     const formData = new FormData();
     formData.append('name', name)
     formData.append('project_length', projectLength)
@@ -50,12 +52,9 @@ export default function EditProject({ user }) {
     fetch(`/projects/${result.id}`, {
       method: "PATCH",
       body: formData
-    }).then(r=>{if (r.ok) { r.json().then(data=>{
-      setAttachments([])
-      navigate(`/projects/${result.url}`)
-      window.location.reload()
+    }).then(r=>{if (r.ok) { r.json().then(() => {
+      navigate(`/`)
     })}})
-    
   }
 
 
@@ -97,13 +96,11 @@ export default function EditProject({ user }) {
     })
     .then(r => {
       if(r.ok) {
-        navigate('/');
         window.location.reload()
       } else {
         r.json().then(err => setErrors(err));
       }
     })
-    
   }
 
  
@@ -114,7 +111,7 @@ export default function EditProject({ user }) {
   
   return (
   <div>
-      <form onChange={startPatch}>
+      <form onChange={startPatch} onSubmit={(e) => handleSubmit(e)}>
         <div>
           <label> Edit Name: </label>
           <input type='text' value={patch === 1 ? name : result.name} onChange={handleName}/>
@@ -136,7 +133,7 @@ export default function EditProject({ user }) {
         <input type="file" accept="image/*" multiple={true} name="images" className={styles.avatarInput} onChange={handleSetAttachments}/>
         </div>
 
-        <button className={styles.button} type="submit" onClick={handleSubmit}>Save Edited Project Info</button>
+        <button className={styles.button} type="submit">Save Edited Project Info</button>
       </form>
       <div className="chirp_editor_attachment_viewer col">
       {attachments.map((attachment,i)=>

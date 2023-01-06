@@ -14,9 +14,14 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    project = Project.create!(project_params)
+    project = Project.create!(name: params[:name], project_length: params[:project_length], description: params[:description], url: params[:url], images: params[:images])
     render json: project, status: :created
-    
+  end
+
+  def destroy_image
+    project = Project.find(params[:id])
+    project.images[params[:id]].purge
+    render json: project, status: :accepted
   end
 
   def destroy
@@ -42,10 +47,7 @@ class ProjectsController < ApplicationController
       render json: { errors: project.errors.full_messages}, status: :unprocessable_entity
     end
   end
-
   
-
-
   private
 
   def project_params

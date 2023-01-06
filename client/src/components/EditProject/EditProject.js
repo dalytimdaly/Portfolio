@@ -12,87 +12,127 @@ export default function EditProject({ user }) {
 
 // edit project info
 
-  const [description, setDescription] = useState(result.description)
-  const [name, setName] = useState(result.name)
-  const [projectLength, setProjectLength] = useState(result.project_length)
-  const [url, setUrl] = useState(result.url)
+const [description, setDescription] = useState(result.description)
+const [name, setName] = useState(result.name)
+const [projectLength, setProjectLength] = useState(result.project_length)
+const [url, setUrl] = useState(result.url)
+const [erros, setErrors] = useState("")
+
+const [patch, setPatch] = useState(0);
+
+function startPatch() {
+  setPatch(1)
+}
+
+function handleDescription(event) {
+  setDescription(event.target.value)
+}
+
+function handleName(event) {
+  setName(event.target.value)
+}
+
+function handleProjectLength(event) {
+  setProjectLength(event.target.value)
+}
+
+function handleUrl(event) {
+  setUrl(event.target.value)
+}
+
+
+function handleSubmit(event) {
+  event.preventDefault()
+
+  const editedProject = {
+      "description": description,
+      "name": name,
+      "project_length": projectLength,
+      "url": url,
+  }
+
+  fetch(`/projects/${result.id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(editedProject),
+  })
+  .then(r => r.json())
+  .then((data) => {
+    navigate(`/projects/${editedProject.url}`)
+    window.location.reload()
+  })
   
-  const [patch, setPatch] = useState(0);
-
-  function startPatch() {
-    setPatch(1)
-  }
-
-  function handleDescription(event) {
-    setDescription(event.target.value)
-  }
-  
-  function handleName(event) {
-    setName(event.target.value)
-  }
-
-  function handleProjectLength(event) {
-    setProjectLength(event.target.value)
-  }
-
-  function handleUrl(event) {
-    setUrl(event.target.value)
-  }
-
-  function handleSubmit(event) {
-    event.preventDefault()
-
-    const editedProject = {
-        "description": description,
-        "name": name,
-        "project_length": projectLength,
-        "url": url,
-    }
-
-    console.log(editedProject)
-
-    fetch(`/projects/${result.id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(editedProject),
-    })
-    .then(r => r.json())
-    .then((data) => {
-      navigate(`/projects/${editedProject.url}`)
-      window.location.reload()
-    })
-    
-  }
+}
 
 
 //add images
+const [attachments, setAttachments] = useState([])
 
-  const [attachments, setAttachments] = useState([])
-  const [errorText, setErrorText] = useState("")
+function handleSetAttachments(e) {
+  setAttachments(attachments=>[ ...e.target.files, ...attachments])
+}
 
-  function handleSetAttachments(e) {
-    if ((e.target.files.length + attachments.length) > 4)
-      { return setErrorText("Only a max of 4 images allowed") }
-    setErrorText("")
-    setAttachments(attachments=>[ ...e.target.files, ...attachments])
+function handleSubmitPicture() {
+  const formData = new FormData();
+  attachments.forEach(attachment => formData.append('images[]', attachment, attachment.name))
+  fetch(`/projects_images/${result.id}`, {
+    method: "PATCH",
+    body: formData
+  }).then(r=>{if (r.ok) { r.json().then(data=>{
+    setAttachments([])
+  })}})   
+}
+
+  //Delete Project
+
+  function handleDelete() {
+    fetch(`/projects/${result.id}`, {
+      method: 'DELETE',
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+    .then(r => {
+      if(r.ok) {
+        navigate('/');
+        window.location.reload()
+      } else {
+        r.json().then(err => setErrors(err));
+      }
+    })
   }
 
-  function handleSubmitPicture() {
-    const formData = new FormData();
-    attachments.forEach(attachment => formData.append('images[]', attachment, attachment.name))
+  //Delete Image
+  function handleImageDelete(event) {
+      console.log(event.target.value)
+    /*
     fetch(`/projects_images/${result.id}`, {
-      method: "PATCH",
-      body: formData
-    }).then(r=>{if (r.ok) { r.json().then(data=>{
-      setAttachments([])
-    })}})   
+      method: 'DELETE',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify()
+    })
+    .then(r => {
+      if(r.ok) {
+        window.location.reload()
+      } else {
+        r.json().then(err => setErrors(err));
+      }
+    })
+    */
   }
+
+
+  //
+
+  let n = 0
   
   return (
   <div>
-      <form onChange={startPatch}>
+      <form onChange={startPatch} onSubmit={(e) => handleSubmit(e)}>
         <div>
           <label> Edit Name: </label>
           <input type='text' value={patch === 1 ? name : result.name} onChange={handleName}/>
@@ -109,26 +149,39 @@ export default function EditProject({ user }) {
           <label> Edit Project Length: </label>
           <input type='text' value={patch === 1 ? projectLength : result.project_length} onChange={handleProjectLength}/>
         </div>
-      </form>
-      <form>
-        <div>
-          <label>Remove Photos:</label>
-          {result.image_urls}
-        </div>
-        <button className={styles.button} type="submit" onClick={handleSubmit}>Save Edited Project Info</button>
+        
+
+        <button className={styles.button} type="submit">Save Edited Project Info</button>
       </form>
 
-    <div className={styles.imagecontainer}>
-      <label> Add More Photos: </label>
-      <input type="file" accept="image/*" multiple={true} name="images" className={styles.avatarInput} onChange={handleSetAttachments}/>
-      <button onClick={handleSubmitPicture}>submit</button>
-    </div>
-    <div className="chirp_editor_attachment_viewer col">
-      {attachments.map((attachment,i)=>
+      <div className={styles.imagecontainer}>
+        <label> Add More Photos: </label>
+        <input type="file" accept="image/*" multiple={true} name="images" className={styles.avatarInput} onChange={handleSetAttachments}/>
+        <button onClick={handleSubmitPicture}>Attach Pictures</button>
+      </div>
+
+        <label>Attached Images:</label>
+      <div className="chirp_editor_attachment_viewer col">
+        {attachments.map((attachment,i)=>
         <div className="row" key={i}>
           <button className="removeAttachment" onClick={()=>setAttachments(attachments.filter(a=>a.name!==attachment.name))}>X</button>
           <span>{attachment.name}</span>
         </div>)}    
+      </div>
+      
+        <div>
+          <label>Remove Photos:</label>
+          {result.image_urls.map(image =>
+            <div key={n++}>
+            <img src={image} alt='image' />
+            <p>{image.id}</p>
+            <button onClick={handleImageDelete} value={n}>Delete Image {n}</button>
+          </div>)}
+        </div>  
+    
+    <div>
+      <label>Delete Project:</label>
+      <button onClick={handleDelete}>Delete Me</button>
     </div>
   </div>
   )

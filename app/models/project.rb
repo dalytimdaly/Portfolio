@@ -1,6 +1,6 @@
 class Project < ApplicationRecord
-  belongs_to :user
-  has_many_attached :images
+  
+  has_many_attached :images, dependent: :destroy
   delegate :service_url, to: :blob
 
   def image_urls

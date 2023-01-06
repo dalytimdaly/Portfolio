@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :users
   resources :projects
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  
   get '/hello', to: 'application#hello_world'
   
   get '/login', to:'sessions#create'
@@ -13,8 +13,8 @@ Rails.application.routes.draw do
   patch '/setavatar/:id', to: 'users#set_avatar'
   
   patch '/projects_images/:id', to: 'projects#update_images'
- 
 
+  delete '/projects_images/:id', to: 'projects#destroy_image'
 
 
 end

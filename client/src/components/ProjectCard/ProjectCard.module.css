@@ -1,6 +1,4 @@
 .postcardcontainer {
-  position: relative;
-  display: flex;
   flex-wrap: wrap;
   width: 300px;
   left: 100px;
@@ -11,28 +9,6 @@
   box-shadow: 0 0 6px #ccc;
   margin-left: 20px;
   margin-bottom: 20px;
-}
-
-.postcardcontainer:hover {
-  color: #000;
-}
-
-.price {
-  font-size: 12px;
-  font-weight: 400;
-  background-color: #fff;
-  padding-left: 7px;
-  padding-right: 7px;
-  padding-top: 2px;
-  padding-bottom: 2px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  border-right: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
-  border-bottom-right-radius: 5px;
-  border-top-left-radius: 5px;
-  margin: 0;
 }
 
 .image {

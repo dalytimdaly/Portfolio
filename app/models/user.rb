@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   has_secure_password
-  has_one_attached :avatar
-  has_many :projects
+  has_one_attached :avatar, dependent: :destroy
+  
 
   def avatar_url
     return Rails.application.routes.url_helpers.url_for(avatar) if avatar.attached?

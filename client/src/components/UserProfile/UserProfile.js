@@ -1,7 +1,4 @@
 import styles from './UserProfile.module.css';
-import { useNavigate, Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-
 
 export default function UserProfile({user}) {
 

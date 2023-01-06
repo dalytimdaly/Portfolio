@@ -1,4 +1,5 @@
 .postcardcontainer {
+  display: flex;
   flex-wrap: wrap;
   width: 300px;
   left: 100px;
@@ -17,74 +18,23 @@
   border-radius: 5px;
 }
 
-.metacontainer {
-  padding: 0px 10px 10px 10px;
-}
-
-.metacontainer span {
-  margin: 3px;
-}
-
-
-.title {
-  font-family: 'Times New Roman', Times, serif;
-  font-size: 1.1rem;
-  color: #4a49ee;
-}
-
 .title:hover {
   color: purple;
   text-decoration: underline;
 }
 
-.date {
-  display: flex;
-  flex-wrap: wrap;
-  font-size: 11px;
-  margin-right: 2px;
-  width: auto;
-  height: 12px;
-  position: relative;
-}
-
-.date2 {
-  font-size: .7rem;
-  color: gray;
-}
-
-.price2 {
-    width: auto;
-    height: 17.6px;
+.price {
     font-size: 12px;
-    background-color: rgb(255,255,255);
-    border: 1px solid rgb(204, 204, 204);
     font-weight: 400;
-    padding: 2px 4px;
-    border-radius: 3px;
-    margin: 4px;
-  }
-
-  .area {
-    width: auto;
-    height: 17.6px;
-    font-size: 14px;
-  }
-
-  .cat {
-    font-size: 12px;
     background-color: #fff;
-    text-size-adjust: auto;
-    font-weight: 400;
     padding-left: 7px;
     padding-right: 7px;
     padding-top: 2px;
     padding-bottom: 2px;
-    top: 0;
-    right: 0;
     position: absolute;
-    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
-    border-bottom-left-radius: 5px;
-    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-top-left-radius: 5px;
     margin: 0;
   }

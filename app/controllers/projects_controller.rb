@@ -20,7 +20,7 @@ class ProjectsController < ApplicationController
 
   def destroy_image
     project = Project.find(params[:id])
-    project.images[params[:id]].purge
+    project.images[JSON.parse(params[:number])].purge
     render json: project, status: :accepted
   end
 
@@ -52,7 +52,7 @@ class ProjectsController < ApplicationController
 
   def project_params
     defaults = { images: [] }
-    params.permit(:id, :name, :project_length, :description, :attachment, :url, :image_urls, :images).reverse_merge(defaults)
+    params.permit(:id, :name, :project_length, :description, :attachment, :url, :image_urls, :images, :number).reverse_merge(defaults)
   end
 
   def set_project

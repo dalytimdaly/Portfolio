@@ -12,59 +12,83 @@ export default function EditProject({ user }) {
 
 // edit project info
 
-  const [description, setDescription] = useState(result.description)
-  const [name, setName] = useState(result.name)
-  const [projectLength, setProjectLength] = useState(result.project_length)
-  const [url, setUrl] = useState(result.url)
-  const [errors, setErrors] = useState("")
+const [description, setDescription] = useState(result.description)
+const [name, setName] = useState(result.name)
+const [projectLength, setProjectLength] = useState(result.project_length)
+const [url, setUrl] = useState(result.url)
+const [erros, setErrors] = useState("")
+
+const [patch, setPatch] = useState(0);
+
+function startPatch() {
+  setPatch(1)
+}
+
+function handleDescription(event) {
+  setDescription(event.target.value)
+}
+
+function handleName(event) {
+  setName(event.target.value)
+}
+
+function handleProjectLength(event) {
+  setProjectLength(event.target.value)
+}
+
+function handleUrl(event) {
+  setUrl(event.target.value)
+}
+
+function handleSubmit(event) {
+  event.preventDefault()
+
+  const editedProject = {
+      "description": description,
+      "name": name,
+      "project_length": projectLength,
+      "url": url,
+  }
+
+  console.log(editedProject)
+
+  fetch(`/projects/${result.id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(editedProject),
+  })
+  .then(r => r.json())
+  .then((data) => {
+    navigate(`/projects/${editedProject.url}`)
+    window.location.reload()
+  })
   
-  const [patch, setPatch] = useState(0);
-
-  function startPatch() {
-    setPatch(1)
-  }
-
-  function handleDescription(event) {
-    setDescription(event.target.value)
-  }
-  
-  function handleName(event) {
-    setName(event.target.value)
-  }
-
-  function handleProjectLength(event) {
-    setProjectLength(event.target.value)
-  }
-
-  function handleUrl(event) {
-    setUrl(event.target.value)
-  }
-
-  function handleSubmit(e) {
-    e.preventdefault()
-    
-    const formData = new FormData();
-    formData.append('name', name)
-    formData.append('project_length', projectLength)
-    formData.append('url', url)
-    formData.append('description', description)
-    attachments.forEach(attachment => formData.append('images[]', attachment, attachment.name))
-    fetch(`/projects/${result.id}`, {
-      method: "PATCH",
-      body: formData
-    }).then(r=>{if (r.ok) { r.json().then(() => {
-      navigate(`/`)
-    })}})
-  }
+}
 
 
 //add images
+const [attachments, setAttachments] = useState([])
+const [errorText, setErrorText] = useState("")
 
-  const [attachments, setAttachments] = useState([])
+function handleSetAttachments(e) {
+  if ((e.target.files.length + attachments.length) > 4)
+    { return setErrorText("Only a max of 4 images allowed") }
+  setErrorText("")
+  setAttachments(attachments=>[ ...e.target.files, ...attachments])
+}
 
-  function handleSetAttachments(e) {
-    setAttachments(attachments=>[ ...e.target.files, ...attachments])
-  }
+function handleSubmitPicture() {
+  const formData = new FormData();
+  attachments.forEach(attachment => formData.append('images[]', attachment, attachment.name))
+  fetch(`/projects_images/${result.id}`, {
+    method: "PATCH",
+    body: formData
+  }).then(r=>{if (r.ok) { r.json().then(data=>{
+    setAttachments([])
+  })}})   
+}
 
   //Delete Project
 
@@ -128,13 +152,18 @@ export default function EditProject({ user }) {
           <label> Edit Project Length: </label>
           <input type='text' value={patch === 1 ? projectLength : result.project_length} onChange={handleProjectLength}/>
         </div>
-        <div className={styles.imagecontainer}>
-        <label> Add More Photos: </label>
-        <input type="file" accept="image/*" multiple={true} name="images" className={styles.avatarInput} onChange={handleSetAttachments}/>
-        </div>
+        
 
         <button className={styles.button} type="submit">Save Edited Project Info</button>
       </form>
+      
+      <div className={styles.imagecontainer}>
+        <label> Add More Photos: </label>
+        <input type="file" accept="image/*" multiple={true} name="images" className={styles.avatarInput} onChange={handleSetAttachments}/>
+        <button onClick={handleSubmitPicture}>Attach Pictures</button>
+        </div>
+
+        <label>Attached Images:</label>
       <div className="chirp_editor_attachment_viewer col">
       {attachments.map((attachment,i)=>
         <div className="row" key={i}>

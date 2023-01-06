@@ -32,7 +32,16 @@ class ProjectsController < ApplicationController
 
   def update
     project = Project.find(params[:id])
-    if project.update(name: params[:name], project_length: params[:project_length], description: params[:description], url: params[:url], images: params[:images])
+    if project.update(name: params[:name], project_length: params[:project_length], description: params[:description], url: params[:url])
+      render json: project, status: :accepted
+    else
+      render json: { errors: project.errors.full_messages}, status: :unprocessable_entity
+    end
+  end
+
+  def update_images
+    project = Project.find(params[:id])
+    if project.update(images: params[:images])
       render json: project, status: :accepted
     else
       render json: { errors: project.errors.full_messages}, status: :unprocessable_entity

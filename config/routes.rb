@@ -11,7 +11,9 @@ Rails.application.routes.draw do
   post '/signup', to: 'users#create'
   
   patch '/setavatar/:id', to: 'users#set_avatar'
- 
+  
+  patch '/projects_images/:id', to: 'projects#update_images'
+
   delete '/projects_images/:id', to: 'projects#destroy_image'
 
 

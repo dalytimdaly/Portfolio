@@ -7,4 +7,6 @@ class Project < ApplicationRecord
     images.map { |image| Rails.application.routes.url_helpers.url_for(image) }
   end
 
+
+
 end

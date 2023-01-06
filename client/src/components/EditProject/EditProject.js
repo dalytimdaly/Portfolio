@@ -105,15 +105,21 @@ function handleSubmitPicture() {
   }
 
   //Delete Image
+
+  const [deleteImage, setDeleteImage] = useState("")
+
   function handleImageDelete(event) {
-      console.log(event.target.value)
-    /*
+    setDeleteImage(event.target.value)
+
+    let deleteMe = {number: deleteImage}
+
+    console.log(JSON.stringify(deleteMe))
     fetch(`/projects_images/${result.id}`, {
       method: 'DELETE',
       headers: {
-        "Content-Type": "application/json"
+        'Content-type': 'application/json'
       },
-      body: JSON.stringify()
+      body: JSON.stringify(deleteMe)
     })
     .then(r => {
       if(r.ok) {
@@ -122,7 +128,7 @@ function handleSubmitPicture() {
         r.json().then(err => setErrors(err));
       }
     })
-    */
+    
   }
 
 
@@ -175,7 +181,8 @@ function handleSubmitPicture() {
             <div key={n++}>
             <img src={image} alt='image' />
             <p>{image.id}</p>
-            <button onClick={handleImageDelete} value={n}>Delete Image {n}</button>
+            <button onClick={(e)=>setDeleteImage(e.target.value)} value={n}>Select Image {n}</button>
+            <button onClick={handleImageDelete}>Delete Me</button>
           </div>)}
         </div>  
     

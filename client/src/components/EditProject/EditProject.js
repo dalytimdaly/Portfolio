@@ -40,6 +40,7 @@ function handleUrl(event) {
   setUrl(event.target.value)
 }
 
+
 function handleSubmit(event) {
   event.preventDefault()
 
@@ -49,8 +50,6 @@ function handleSubmit(event) {
       "project_length": projectLength,
       "url": url,
   }
-
-  console.log(editedProject)
 
   fetch(`/projects/${result.id}`, {
     method: "PATCH",
@@ -70,12 +69,8 @@ function handleSubmit(event) {
 
 //add images
 const [attachments, setAttachments] = useState([])
-const [errorText, setErrorText] = useState("")
 
 function handleSetAttachments(e) {
-  if ((e.target.files.length + attachments.length) > 4)
-    { return setErrorText("Only a max of 4 images allowed") }
-  setErrorText("")
   setAttachments(attachments=>[ ...e.target.files, ...attachments])
 }
 
@@ -110,13 +105,15 @@ function handleSubmitPicture() {
   }
 
   //Delete Image
-  
-  function handleImageDelete(n) {
+  function handleImageDelete(event) {
+      console.log(event.target.value)
+    /*
     fetch(`/projects_images/${result.id}`, {
       method: 'DELETE',
       headers: {
         "Content-Type": "application/json"
       },
+      body: JSON.stringify()
     })
     .then(r => {
       if(r.ok) {
@@ -125,9 +122,9 @@ function handleSubmitPicture() {
         r.json().then(err => setErrors(err));
       }
     })
+    */
   }
 
- 
 
   //
 
@@ -156,16 +153,16 @@ function handleSubmitPicture() {
 
         <button className={styles.button} type="submit">Save Edited Project Info</button>
       </form>
-      
+
       <div className={styles.imagecontainer}>
         <label> Add More Photos: </label>
         <input type="file" accept="image/*" multiple={true} name="images" className={styles.avatarInput} onChange={handleSetAttachments}/>
         <button onClick={handleSubmitPicture}>Attach Pictures</button>
-        </div>
+      </div>
 
         <label>Attached Images:</label>
       <div className="chirp_editor_attachment_viewer col">
-      {attachments.map((attachment,i)=>
+        {attachments.map((attachment,i)=>
         <div className="row" key={i}>
           <button className="removeAttachment" onClick={()=>setAttachments(attachments.filter(a=>a.name!==attachment.name))}>X</button>
           <span>{attachment.name}</span>
@@ -177,7 +174,8 @@ function handleSubmitPicture() {
           {result.image_urls.map(image =>
             <div key={n++}>
             <img src={image} alt='image' />
-            <button onClick={handleImageDelete}>Delete Image {n}</button>
+            <p>{image.id}</p>
+            <button onClick={handleImageDelete} value={n}>Delete Image {n}</button>
           </div>)}
         </div>  
     

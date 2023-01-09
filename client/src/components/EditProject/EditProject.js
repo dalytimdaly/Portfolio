@@ -179,7 +179,7 @@ function handleSubmitPicture() {
           <label>Remove Photos:</label>
           {result.image_urls.map(image =>
             <div key={n++}>
-            <img src={image} alt='image' />
+            <img src={image} alt='deleted' />
             <p>{image.id}</p>
             <button onClick={(e)=>setDeleteImage(e.target.value)} value={n}>Select Image {n}</button>
             <button onClick={handleImageDelete}>Delete Me</button>

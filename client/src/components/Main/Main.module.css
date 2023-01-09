@@ -2,8 +2,7 @@
   display: flex;
   flex-wrap: wrap;
   margin-top: 60px;
-  margin-left: 120px;
-  
+  margin-left: 300px;
 }
 
 .headers {
@@ -15,8 +14,7 @@
 
 .mainDiv {
   background: dimgray;
-  height: 55vw;
-  width: 98.9vw;
+  min-height: 43.3vw;
 }
 
 .name {

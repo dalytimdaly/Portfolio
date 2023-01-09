@@ -18,7 +18,8 @@ Project.create(
   project_length: "",
   description: "",
   url: "yalp",
-  attachment: ""
+  attachment: "",
+  last_update: "09/20/2022"
 )
 
 Project.create(
@@ -26,7 +27,8 @@ Project.create(
   project_length: "",
   description: "",
   url: "gregslist",
-  attachment: ""
+  attachment: "",
+  last_update: "10/30/2022"
 )
 
 Project.create(
@@ -34,6 +36,7 @@ Project.create(
   project_length: "",
   description: "",
   url: "picklepartners",
-  attachment: ""
+  attachment: "",
+  last_update: "11/18/2022"
 )
 

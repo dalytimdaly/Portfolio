@@ -10,7 +10,7 @@ export default function Main({ user, results }) {
   return (
     <div className={styles.mainDiv}>
       <div className={styles.headers}>
-      <h1 className={styles.name}>Tim Daly</h1>
+      <h1 className={styles.name}><Link to='/profile/102'>Tim Daly</Link></h1>
       <h2>Full Stack Web Developer</h2>
       <h3>JavaScript | React | Ruby | Rails</h3>
       <div>

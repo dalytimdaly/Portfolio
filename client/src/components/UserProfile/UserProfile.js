@@ -1,13 +1,10 @@
 import styles from './UserProfile.module.css';
-import { useNavigate, Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-
 
 export default function UserProfile({user}) {
 
   return (
-    <div>
-      <h1>{user.first_name} {user.last_name}</h1>
+    <div className={styles.mainDiv}>
+      <h1 className={styles.userName}>{user.first_name} {user.last_name}</h1>
       <img src={user.avatar} alt="user image" />
       <h2>{user.area}</h2> <h2>{user.phone_number}</h2>
       <p>{user.bio}</p>

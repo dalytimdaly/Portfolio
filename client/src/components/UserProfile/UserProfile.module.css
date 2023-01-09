@@ -1,0 +1,9 @@
+.mainDiv {
+  background: dimgray;
+  min-height: 43.3vw;
+}
+
+.userName {
+  padding: 0px;
+  margin-top: 0px;
+}

@@ -52,16 +52,16 @@ function App() {
 
   return (
     <Routes>
-    <Route element={<Header user={user} results={results} />}>
-      <Route path="/edit" element={<EditProject results={results} />} />
-      <Route path="/" element={<Main user={user} results={results}/>} /> 
-      <Route path='/login' element={<Login user={user} newUser={newUser}/>} />
-      <Route path='/about' element={<About user={user} />} />
-      <Route path='/projects/add' element={<AddProject user={user} />} />
-      <Route path='/profile/edit' element={<EditProfile user={user} newuser={newUser}/>}/>
-      <Route path='/profile/:id' element={<UserProfile user={user}/>}/>
-      {projRoutes}
-    </Route>
+      <Route element={<Header user={user} results={results} />}>
+        <Route path="/edit" element={<EditProject results={results} />} />
+        <Route path="/" element={<Main user={user} results={results}/>} /> 
+        <Route path='/login' element={<Login user={user} newUser={newUser}/>} />
+        <Route path='/about' element={<About user={user} />} />
+        <Route path='/projects/add' element={<AddProject user={user} />} />
+        <Route path='/profile/edit' element={<EditProfile user={user} newuser={newUser}/>}/>
+        <Route path='/profile/:id' element={<UserProfile user={user}/>}/>
+        {projRoutes}
+      </Route>
     </Routes>
   );
 }

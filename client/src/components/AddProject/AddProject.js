@@ -9,6 +9,8 @@ export default function AddProject({ user }) {
   const [projectURL, setProjectURL] = useState('')
   const [projectDescription, setProjectDescription] = useState('')
   const [attachments, setAttachments] = useState([])
+  const [lastUpdate, setLastUpdate] = useState('')
+  const userId = user.id
   const [errorText, setErrorText] = useState("")
 
   const navigate = useNavigate()
@@ -25,6 +27,8 @@ export default function AddProject({ user }) {
     formData.append('project_length', projectLength)
     formData.append('url', projectURL)
     formData.append('description', projectDescription)
+    formData.append('user_id', userId)
+    formData.append('last_update', lastUpdate)
     attachments.forEach(attachment => formData.append('images[]', attachment, attachment.name))
     console.log(projectDescription, projectLength, projectName, projectURL, attachments)
     fetch('/projects', {
@@ -47,11 +51,15 @@ export default function AddProject({ user }) {
       <label>Project Length:</label>
       <input type='text' value={projectLength} onChange={(e) => setProjectLength(e.target.value)}/>
 
+      <label>Last Update:</label>
+      <input type='text' value={lastUpdate} onChange={(e) => setLastUpdate(e.target.value)}/>
+
       <label>URL:</label>
       <input type='text' value={projectURL} onChange={(e) => setProjectURL(e.target.value)}/>
 
       <label>Description:</label>
-      <input type='text' value={projectDescription} onChange={(e) => setProjectDescription(e.target.value)}/>
+      <textarea type='text' value={projectDescription} onChange={(e) => setProjectDescription(e.target.value)}/>
+
 
       <label>Add Images:</label>
       <div className={styles.imagecontainer}>

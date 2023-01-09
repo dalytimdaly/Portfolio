@@ -58,7 +58,7 @@ export default function EditAccount({user}) {
       bio: userBio
     }
 
-    
+  
     fetch(`/users/${postObject.id}`, {
       method: "PATCH",
       headers: {
@@ -68,11 +68,28 @@ export default function EditAccount({user}) {
     })
     .then(r => r.json())
     .then((data) => {
-      navigate(`/profile/${postObject.id}`)
+      navigate(`/`)
       window.location.reload()
     })
    
   }
+
+  function handleSubmitPicture(e) {
+    e.preventDefault()
+    const file = e.target['avatar'].files[0]
+    const formData = new FormData();
+    formData.append('avatar', file)
+    
+  fetch(`/setavatar/${postObject.id}`, {
+            method: 'PATCH',
+            headers: {
+                'Accept': 'application/json'
+            },
+            body: formData
+        }).then(res => res.json())
+        .then((data) => alert('Avatar submitted!'))
+        
+    }
 
   return (
     <div>
@@ -92,11 +109,16 @@ export default function EditAccount({user}) {
       <label>Bio</label>
       <textarea value={postObject.bio} onChange={handleBio} />
 
-      <label>Profile Picture</label>
-      <input type="file"  />
-
       <button className={styles.button} type="submit">Submit Account Info</button>
       </form>
+
+      <label>Profile Picture</label>
+      <form onSubmit={(e) => handleSubmitPicture(e)}>
+                <input type="file" name="avatar" className={styles.avatarInput}/>
+                <button type="submit" className={styles.avatarButton}>Submit</button>
+      </form>
+       
     </div>
+
   )
 }

@@ -29,7 +29,7 @@ class UsersController < ApplicationController
   
     def set_avatar
         user = User.find(params[:id])
-        user.update(user_params)
+        user.update(avatar: params[:avatar])
         render json: user, status: :accepted
     end
   
@@ -52,7 +52,7 @@ class UsersController < ApplicationController
     private
   
     def user_params
-      params.permit(:id, :username, :password, :password_confirmation, :first_name, :last_name, :area, :phone_number, :bio)
+      params.permit(:id, :user, :username, :avatar, :password, :password_confirmation, :first_name, :last_name, :area, :phone_number, :bio)
     end
   
     

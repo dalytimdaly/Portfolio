@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   
   get '/hello', to: 'application#hello_world'
   
-  get '/login', to:'sessions#create'
+  post '/login', to:'sessions#create'
   delete '/destroy', to: 'sessions#destroy'
     
   get '/me', to:'users#showme'

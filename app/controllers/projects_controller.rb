@@ -14,7 +14,7 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    project = Project.create!(name: params[:name], project_length: params[:project_length], description: params[:description], url: params[:url], images: params[:images])
+    project = Project.create!(name: params[:name], project_length: params[:project_length], description: params[:description], url: params[:url], images: params[:images], user_id: params[:user_id], last_update: params[:last_update])
     render json: project, status: :created
   end
 
@@ -32,7 +32,7 @@ class ProjectsController < ApplicationController
 
   def update
     project = Project.find(params[:id])
-    if project.update(name: params[:name], project_length: params[:project_length], description: params[:description], url: params[:url])
+    if project.update(name: params[:name], project_length: params[:project_length], description: params[:description], url: params[:url], user_id: params[user_id], last_update: params[last_update])
       render json: project, status: :accepted
     else
       render json: { errors: project.errors.full_messages}, status: :unprocessable_entity
@@ -52,7 +52,7 @@ class ProjectsController < ApplicationController
 
   def project_params
     defaults = { images: [] }
-    params.permit(:id, :name, :project_length, :description, :attachment, :url, :image_urls, :images, :number).reverse_merge(defaults)
+    params.permit(:id, :name, :project_length, :description, :attachment, :url, :image_urls, :images, :number, :user_id, :last_update).reverse_merge(defaults)
   end
 
   def set_project

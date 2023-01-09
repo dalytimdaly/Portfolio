@@ -4,6 +4,8 @@ This is the README for Timothy Daly's Portfolio project. This aims to be an easy
 
 As of 01/09/23, basic functionality and image attachments are working. One can create projects, edit them and attach or remove images as desired. User profiles, CSS elements and more are being actively built.
 
+Project goals are being tracked via Trello, but will soon be switched to JIRA. Project conceptual designs are currently being made using Figma.
+
 This README will normally document whatever steps are necessary to get the
 application up and running.
 
